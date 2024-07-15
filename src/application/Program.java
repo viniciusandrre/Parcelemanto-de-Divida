@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 import model.entities.Contrato;
 import model.entities.Parcelas;
+import model.services.ServicoDeContrato;
+import model.services.ServicoDoPaypayl;
 
 public class Program {
 
@@ -21,14 +23,24 @@ public class Program {
 		sc.nextLine();
 		System.out.print("Data (dd/MM/yyyy): ");
 		LocalDate dataInicio = LocalDate.parse(sc.nextLine(),dtf);
-		System.out.println("Valor do Contrato: ");
+		System.out.print("Valor do Contrato: ");
 		double valorTotal = sc.nextDouble();
 		
 		Contrato con = new Contrato(numero, dataInicio, valorTotal);
 		
 		System.out.print("Entre com o Numero de Parcelas: ");
 		int p = sc.nextInt();
-		sc.nextLine();
+		
+		ServicoDeContrato servicoDeContrato = new ServicoDeContrato(new ServicoDoPaypayl());
+		
+		servicoDeContrato.processamentoDeDeContrato(con, p);
+		
+		
+		System.out.println("Parcelas:");
+		
+		for(Parcelas parcelas: con.getParcelas()) {
+			System.out.println(parcelas);
+		}
 
 	}
 

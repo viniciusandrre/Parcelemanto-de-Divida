@@ -30,5 +30,10 @@ public class Parcelas {
 		this.montante = montante;
 	}
 	
+	@Override 
+	public String toString() {
+		return dataFim + " - " + String.format("%.2f",montante);
+	}
+	
 	
 }
